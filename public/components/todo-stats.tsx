@@ -1,13 +1,16 @@
+import { useTodoStore } from '@/lib/todo-store';
 import React from 'react';
 
 
 
 export default function TodoStats() {
-    const stats = {
-        total: 10,
-        completed: 4,
-        pending: 6
-    }
+    const getTodoStats = useTodoStore((state) => state.getTodoStats);
+    const stats = getTodoStats();
+    // const stats = {
+    //     total: 10,
+    //     completed: 4,
+    //     pending: 6
+    // }
   return (
 	<div className='text-black m-4 text-center' >
         <div className="flex items-center justify-center gap-4 px-4 py-2 "   >

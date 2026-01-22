@@ -5,10 +5,17 @@ interface TodoStore {
   todos: Todo[];
   addTodo: (text: string) => void;
   deleteTodo: (id: string) => void;
+    toggleTodo: (id: string) => void;
+    updateTodo: (id: string, text: string) => void;
+    getTodoStats: () => {
+        total: number;
+        completed: number;
+        pending: number;
+    };
   
 }
 
-export const useTodoStore = create<TodoStore>((set) => ({
+export const useTodoStore = create<TodoStore>((set, get) => ({
   todos: [{
         id: "1",
         text: "Learn React",
@@ -45,6 +52,28 @@ export const useTodoStore = create<TodoStore>((set) => ({
     deleteTodo: (id: string) =>
         set((state) => ({
             todos: state.todos.filter((todo) => todo.id !== id)
-        }))
+        })),
+    toggleTodo: (id: string) =>
+        set((state) => ({
+            todos: state.todos.map((todo) =>
+                todo.id === id ? { ...todo, completed: !todo.completed } : todo
+            )
+            })),
+
+    updateTodo: (id: string, text: string) =>
+        set((state) => ({
+            todos: state.todos.map((todo) =>
+                todo.id === id ? { ...todo, text: text.trim() } : todo
+            )
+        })),
+
+    getTodoStats: () => {
+        const { todos } = get();
+        return{
+            total: todos.length,
+            completed: todos.filter((todo) => todo.completed).length,
+            pending: todos.filter((todo) => !todo.completed).length,
+        }
+    }
 
 }));
