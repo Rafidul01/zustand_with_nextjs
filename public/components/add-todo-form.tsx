@@ -1,20 +1,24 @@
 'use client';
 
 
+import { useTodoStore } from "@/lib/todo-store";
 import { KeyboardEvent, MouseEvent, useState } from "react";
 
 export default function AddTodoForm(){
     const [input, setInput] = useState("add todo");
+
+    const addTodo = useTodoStore((state) => state.addTodo);
     
     const handelSubmit = (e: KeyboardEvent<HTMLInputElement>) =>{
         e.preventDefault();
-        
-        console.log(input);
+        addTodo(input);
+        setInput("");
     }
 
     const handleButtonClick = (e: MouseEvent<HTMLButtonElement>) => {
         e.preventDefault();
-        console.log(input);
+        addTodo(input);
+        setInput("");
     }
   return (
     <form className="flex mb-4 text-black">

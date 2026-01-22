@@ -1,29 +1,15 @@
+'use client'
+import { useTodoStore } from "@/lib/todo-store";
 import AddTodoForm from "@/public/components/add-todo-form";
 import TodoItem from "@/public/components/todo-Item";
 import TodoStats from "@/public/components/todo-stats";
 import { text } from "stream/consumers";
 
 export default function Home() {
-  const todos = [
-    {
-      id: 1,
-      text: "Learn React",
-      completed: false,
-      createdAt: new Date("2026-01-01T10:00:00")
-    },
-    {
-      id: 2,
-      text: "Build a Todo App",
-      completed: true,
-      createdAt: new Date("2026-01-02T12:00:00")
-    },
-    {
-      id: 3,
-      text: "Master TypeScript",
-      completed: false,
-      createdAt: new Date("2026-01-03T14:00:00")
-    }
-  ];
+  const todos = useTodoStore((state) => state.todos);
+  // const todos = [
+    
+  // ];
   return (
     <div className="min-h-screen bg-gray-100 py-8">
       <div className="max-w-2xl mx-auto px-4" >
