@@ -1,9 +1,15 @@
+import { useTodoStore } from '@/lib/todo-store';
 import { Todo } from '@/types/todo';
 import React from 'react';
 
 
 
 export default function TodoItem({ todo }: { todo: Todo }) {
+    const deleteTodo = useTodoStore((state) => state.deleteTodo);
+
+    const handleDelete = () => {
+        deleteTodo(todo.id);
+    }
   return (
     <div className='flex items-center justify-between bg-white p-4 rounded-3xl shadow'>
          
@@ -23,7 +29,7 @@ export default function TodoItem({ todo }: { todo: Todo }) {
       </div>
       <div className='flex items-center gap-2'>
         <button className="ml-2">✏️</button>
-        <button className="text-red-500 hover:text-red-700">🗑️</button>
+        <button className="text-red-500 hover:text-red-700" onClick={handleDelete}>🗑️</button>
       </div>
 
      

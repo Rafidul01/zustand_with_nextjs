@@ -4,6 +4,7 @@ import { create } from "zustand";
 interface TodoStore {
   todos: Todo[];
   addTodo: (text: string) => void;
+  deleteTodo: (id: string) => void;
   
 }
 
@@ -40,5 +41,10 @@ export const useTodoStore = create<TodoStore>((set) => ({
                     createdAt: new Date()
                 }
             ]
+        })),
+    deleteTodo: (id: string) =>
+        set((state) => ({
+            todos: state.todos.filter((todo) => todo.id !== id)
         }))
+
 }));
